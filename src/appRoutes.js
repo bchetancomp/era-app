@@ -1,7 +1,7 @@
 import {Component} from 'react';
-import LoginPage from './containers/loginPage/LoginPage';
+import LoginPage from './containers/loginPage/LoginPage.container';
 import SignupPage from './containers/signupPage/SignupPage';
-import LandingPage from './containers/landingPage/LandingPage';
+import LandingPage from './containers/landingPage/LandingPage.container';
 import VisitCounter from './containers/visitCounter/VisitCounter';
 import ProfilePage from './containers/profile/ProfilePage';
 import SettingsPage from './containers/settings/SettingsPage';
@@ -37,6 +37,7 @@ export default function AppRoutes() {
              <Route path="login" element={<LoginPage/>} />
              <Route path="signup" element={<SignupPage/>} />
              <Route path="visits" element={<VisitCounter/>} />
+             <Route path="*" element={<p>There's nothing here: 404!</p>} />
            </Routes>
         </BrowserRouter>
     );

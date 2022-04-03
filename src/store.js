@@ -1,13 +1,13 @@
-import { createStore, combineReducers } from 'redux';
-
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk'
 import loginReducer from './containers/loginPage/LoginPage.reducer';
 import signupReducer from './containers/signupPage/SignupPage.reducer';
 
 let rootReducer = combineReducers({
-                                          login: loginReducer,
-                                          signun: signupReducer
-                                      });
+    login: loginReducer,
+    signun: signupReducer
+});
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, ['Use Redux'], applyMiddleware(thunkMiddleware));
 
 export default store;

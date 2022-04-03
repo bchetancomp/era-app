@@ -1,8 +1,26 @@
 import { Component } from 'react';
-import { Link } from 'react-router-dom'
+import {
+    connect
+} from "react-redux";
+import {
+    bindActionCreators
+} from "redux";
+//import * as rootActions from "../Root/Root.actions";
+import * as loginActions from "../../containers/loginPage/LoginPage.actions";
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {Menu, Image, Dropdown, Button, Avatar} from 'antd';
 
-export default function AppBar() {
+function AppBar(props) {
+    const navigate = useNavigate();
+    function onSignoutClick() {
+        console.log('onSignoutClick');
+        props.loginActions.logOut(navigateToLoginPage);
+        //navigate('login');
+    }
+    function navigateToLoginPage() {
+        navigate('/login');
+    }
     const menu = (
       <Menu>
         <Menu.Item key="1">
@@ -11,10 +29,8 @@ export default function AppBar() {
         <Menu.Item key="2">
           <Link to="/settings">Settings</Link>
         </Menu.Item>
-        <Menu.Item key="3">
-          <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
-            Sign out
-          </a>
+        <Menu.Item key="3" onClick={onSignoutClick}>
+          Sign out
         </Menu.Item>
       </Menu>
     );
@@ -35,3 +51,11 @@ export default function AppBar() {
         </div>
     )
 }
+
+export default connect((state) => ({
+    isLoggedIn: state.login.isLoggedIn,
+    user: state.login.user,
+    status: state.login.status,
+}), (dispatch) => ({
+    loginActions: bindActionCreators(loginActions, dispatch),
+}))(AppBar);
