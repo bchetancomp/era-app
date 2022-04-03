@@ -1,9 +1,10 @@
 import { Component } from 'react';
+import { Routes, Route, Outlet } from 'react-router-dom'
 import LeftNav from '../../components/leftNav/LeftNav';
 import AppBar from '../../components/appBar/AppBar';
 import { Layout } from 'antd';
-const { Header, Footer, Sider, Content } = Layout;
 
+const { Header, Footer, Sider, Content } = Layout;
 
 export default class LandingPage extends Component {
     constructor(props) {
@@ -19,10 +20,8 @@ export default class LandingPage extends Component {
                 <Sider>
                     <LeftNav/>
                 </Sider>
-                <Content>
-                    <div>
-                        Landing Page
-                    </div>
+                <Content style={{margin: '50px 0px 0px 60px', padding: '20px', overflowY: 'scroll'}}>
+                    <Outlet/>
                 </Content>
               </Layout>
               <Footer style={{ height: 24, textAlign: 'center', padding: '0', backgroundColor: '#001529', color: 'rgba(255, 255, 255, 0.65)' }}>

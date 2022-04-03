@@ -1,18 +1,15 @@
-import {Component} from 'react';
+import { Component } from 'react';
+import { Link } from 'react-router-dom'
 import {Menu, Image, Dropdown, Button, Avatar} from 'antd';
 
 export default function AppBar() {
     const menu = (
       <Menu>
         <Menu.Item key="1">
-          <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-            Profile
-          </a>
+          <Link to="/profile">User Profile</Link>
         </Menu.Item>
         <Menu.Item key="2">
-          <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
-            Settings
-          </a>
+          <Link to="/settings">Settings</Link>
         </Menu.Item>
         <Menu.Item key="3">
           <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
@@ -23,13 +20,17 @@ export default function AppBar() {
     );
 
     return (
-        <div className="flex-container">
-            <Image
-              width={36}
-              src="https://gw.alipayobjects.com/zos/antfincdn/aPkFc8Sj7n/method-draw-image.svg"
-            />
+        <div className="app-bar flex-container">
+            <div className="app-logo-n-name">
+                <Image
+                  className="app-logo"
+                  width={30}
+                  src="https://gw.alipayobjects.com/zos/antfincdn/aPkFc8Sj7n/method-draw-image.svg"
+                />
+                <span className="app-name">Enterprise React App</span>
+            </div>
             <Dropdown overlay={menu} placement="topRight" arrow={{ pointAtCenter: true }}>
-              <Avatar>CB</Avatar>
+              <Avatar style={{margin: '8px 0px 0px 0px'}}>CB</Avatar>
             </Dropdown>
         </div>
     )

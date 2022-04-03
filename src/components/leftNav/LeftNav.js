@@ -28,7 +28,7 @@ const LeftNav = () => {
         style={{ width: 256, height: '100%', borderRight: 0 }}
         defaultSelectedKeys={['1']}
         defaultOpenKeys={[]}
-        mode='vertical'
+        mode='inline'
         theme='dark'
       >
         <Menu.Item key="1" icon={<MailOutlined />}>
