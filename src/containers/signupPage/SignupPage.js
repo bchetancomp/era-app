@@ -39,7 +39,7 @@ export default function SignupPage(props) {
                   <Form.Item label="Password" name={['user', 'password']} rules={[{ required: true, message: 'Please input your password!' }]}>
                     <Input.Password />
                   </Form.Item>
-                  <Form.Item name={['user', 'email']} label="Email" rules={[{ type: 'email' }]}>
+                  <Form.Item name={['user', 'email']} label="Email" rules={[{ type: 'email' }]} rules={[{ required: true }]}>
                     <Input />
                   </Form.Item>
                   <Form.Item name={['user', 'age']} label="Age" rules={[{ type: 'number', min: 0, max: 99 }]}>
@@ -53,8 +53,8 @@ export default function SignupPage(props) {
                   </Form.Item>
                   <Form.Item wrapperCol={{ offset: 6, span: 16 }} validateStatus={isValid} help={message}>
                     <Space size="large">
-                        <Button type="primary" htmlType="submit">
-                          Submit
+                        <Button type="primary" htmlType="submit" loading={props.status === 'doing'}>
+                          { props.status === 'doing'? 'Signing Up': 'Sign Up' }
                         </Button>
                         <Button onClick={onFormReset}>Reset</Button>
                     </Space>

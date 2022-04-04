@@ -11,7 +11,7 @@ import SignupPage from "./SignupPage";
 export default connect((state) => ({
     isLoggedIn: state.login.isLoggedIn,
     user: state.login.user,
-    status: state.login.status,
+    status: state.signup.status,
     message: state.signup.message,
     signedUpUsers: state.signup.signedUpUsers
 }), (dispatch) => ({

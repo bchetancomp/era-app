@@ -55,8 +55,8 @@ export default function LoginPage(props) {
 
               <Form.Item wrapperCol={{ offset: 6, span: 16 }} validateStatus={isValid} help={message}>
                 <Space size="large">
-                    <Button type="primary" htmlType="submit">
-                      Submit
+                    <Button type="primary" htmlType="submit" loading={props.status === 'doing'}>
+                      { props.status === 'doing'? 'Signing In': 'Sign In' }
                     </Button>
                     <Link to="/signup">Sign Up</Link>
                 </Space>
