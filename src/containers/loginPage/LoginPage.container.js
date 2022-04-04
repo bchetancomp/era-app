@@ -12,6 +12,8 @@ export default connect((state) => ({
     isLoggedIn: state.login.isLoggedIn,
     user: state.login.user,
     status: state.login.status,
+    message: state.login.message,
+    signedUpUsers: state.signup.signedUpUsers,
 }), (dispatch) => ({
     loginActions: bindActionCreators(loginActions, dispatch),
 }))(LoginPage);

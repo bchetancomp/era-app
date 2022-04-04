@@ -1,6 +1,6 @@
 import {Component} from 'react';
 import LoginPage from './containers/loginPage/LoginPage.container';
-import SignupPage from './containers/signupPage/SignupPage';
+import SignupPage from './containers/signupPage/SignupPage.container';
 import LandingPage from './containers/landingPage/LandingPage.container';
 import VisitCounter from './containers/visitCounter/VisitCounter';
 import ProfilePage from './containers/profile/ProfilePage';
@@ -25,7 +25,7 @@ export default function AppRoutes() {
                 <Route path="/" element={<AppsListPage/>}></Route>
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/settings" element={<SettingsPage />} />
-
+                <Route path="visitcount" element={<VisitCounter/>} />
                 <Route path="/clm" element={<CLM />} />
                 <Route path="/cpq" element={<CPQ />} />
                 <Route path="/crm" element={<CRM />} />
@@ -36,7 +36,6 @@ export default function AppRoutes() {
              </Route>
              <Route path="login" element={<LoginPage/>} />
              <Route path="signup" element={<SignupPage/>} />
-             <Route path="visits" element={<VisitCounter/>} />
              <Route path="*" element={<p>There's nothing here: 404!</p>} />
            </Routes>
         </BrowserRouter>

@@ -1,4 +1,3 @@
-import { Component } from 'react';
 import {
     connect
 } from "react-redux";
@@ -13,10 +12,20 @@ import {Menu, Image, Dropdown, Button, Avatar} from 'antd';
 
 function AppBar(props) {
     const navigate = useNavigate();
+    function acronym(fullName) {
+        var nameParts = fullName.split(' ');
+        if(nameParts.length > 1) {
+            var matches = fullName.match(/\b(\w)/g);
+            var acronym = matches.join('');
+        }else {
+            acronym = nameParts[0].substring(0, 3).toUpperCase();
+        }
+        return acronym;
+    }
+
     function onSignoutClick() {
         console.log('onSignoutClick');
         props.loginActions.logOut(navigateToLoginPage);
-        //navigate('login');
     }
     function navigateToLoginPage() {
         navigate('/login');
@@ -46,7 +55,7 @@ function AppBar(props) {
                 <span className="app-name">Enterprise React App</span>
             </div>
             <Dropdown overlay={menu} placement="topRight" arrow={{ pointAtCenter: true }}>
-              <Avatar style={{margin: '8px 0px 0px 0px'}}>CB</Avatar>
+              <Avatar style={{margin: '8px 0px 0px 0px'}}>{acronym(props.user.username)}</Avatar>
             </Dropdown>
         </div>
     )

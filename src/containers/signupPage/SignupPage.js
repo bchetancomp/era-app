@@ -1,65 +1,65 @@
 import { Component } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, Form, Input, InputNumber, Button, Space } from 'antd';
 
-export default class SignupPage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: null,
-            password: null,
-            confirmPassword: null,
-            age: null,
-            website: null
-        };
-        this.onFinish = this.onFinish.bind(this);
-        this.onFinishFailed = this.onFinishFailed.bind(this);
+export default function SignupPage(props) {
+    const navigate = useNavigate();
+    const message = props.message;
+    let isValid = "success";
+    if(message && message.length > 0) {
+        isValid = "error";
     }
-    onFinish() {
+    function onFinish(values) {
         console.log('onFinish');
+        props.signupActions.signUp(values.user, navigateToLoginPage);
     }
-    onFinishFailed() {
-        console.log('onChangePswd');
+    function onFinishFailed() {
+        console.log('onFinishFailed');
     }
-    onFormReset() {
+    function onFormReset() {
         this.setState({});
     }
-    render() {
-        return(
-            <Card title="Sign up" bordered={true} style={{ width: 500 }}>
-                <Form
-                    name="nest-messages"
-                    labelCol={{ span: 6 }}
-                    wrapperCol={{ span: 16 }}
-                    initialValues={{ remember: true }}
-                    onFinish={this.onFinish}
-                    onFinishFailed={this.onFinishFailed}
-                    autoComplete="off"
-                >
-                      <Form.Item name={['user', 'name']} label="Name" rules={[{ required: true }]}>
-                        <Input />
-                      </Form.Item>
-                      <Form.Item name={['user', 'email']} label="Email" rules={[{ type: 'email' }]}>
-                        <Input />
-                      </Form.Item>
-                      <Form.Item name={['user', 'age']} label="Age" rules={[{ type: 'number', min: 0, max: 99 }]}>
-                        <InputNumber />
-                      </Form.Item>
-                      <Form.Item name={['user', 'website']} label="Website">
-                        <Input />
-                      </Form.Item>
-                      <Form.Item name={['user', 'introduction']} label="Introduction">
-                        <Input.TextArea />
-                      </Form.Item>
-                      <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
-                        <Space size="large">
-                            <Button type="primary" htmlType="submit">
-                              Submit
-                            </Button>
-                            <Button onClick={this.onFormReset}>Reset</Button>
-                        </Space>
-                      </Form.Item>
-                </Form>
-            </Card>
-        );
+    function navigateToLoginPage() {
+        navigate('/login');
     }
+    return(
+        <Card title="Sign up" bordered={true} style={{ width: 500 }}>
+            <Form
+                name="nest-messages"
+                labelCol={{ span: 6 }}
+                wrapperCol={{ span: 16 }}
+                initialValues={{ remember: true }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
+            >
+                  <Form.Item name={['user', 'username']} label="Username" rules={[{ required: true }]}>
+                    <Input />
+                  </Form.Item>
+                  <Form.Item label="Password" name={['user', 'password']} rules={[{ required: true, message: 'Please input your password!' }]}>
+                    <Input.Password />
+                  </Form.Item>
+                  <Form.Item name={['user', 'email']} label="Email" rules={[{ type: 'email' }]}>
+                    <Input />
+                  </Form.Item>
+                  <Form.Item name={['user', 'age']} label="Age" rules={[{ type: 'number', min: 0, max: 99 }]}>
+                    <InputNumber />
+                  </Form.Item>
+                  <Form.Item name={['user', 'website']} label="Website">
+                    <Input />
+                  </Form.Item>
+                  <Form.Item name={['user', 'introduction']} label="Introduction">
+                    <Input.TextArea />
+                  </Form.Item>
+                  <Form.Item wrapperCol={{ offset: 6, span: 16 }} validateStatus={isValid} help={message}>
+                    <Space size="large">
+                        <Button type="primary" htmlType="submit">
+                          Submit
+                        </Button>
+                        <Button onClick={onFormReset}>Reset</Button>
+                    </Space>
+                  </Form.Item>
+            </Form>
+        </Card>
+    );
 }

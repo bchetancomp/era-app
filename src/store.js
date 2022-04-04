@@ -5,7 +5,7 @@ import signupReducer from './containers/signupPage/SignupPage.reducer';
 
 let rootReducer = combineReducers({
     login: loginReducer,
-    signun: signupReducer
+    signup: signupReducer
 });
 
 const store = createStore(rootReducer, ['Use Redux'], applyMiddleware(thunkMiddleware));

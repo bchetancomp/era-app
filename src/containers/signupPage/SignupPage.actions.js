@@ -12,12 +12,19 @@ export function signUp(opt, callBack) {
                 mode: 'no-cors'
             })
             .then((res) => {
-                dispatch({
-                    'type': actionTypes.SIGN_UP,
-                    user: testUser
-                });
-                if (typeof callBack === 'function') {
-                    callBack();
+                if(opt.email && opt.email.indexOf('gmail.com') > -1) {
+                    dispatch({
+                        'type': actionTypes.SIGN_UP,
+                        user: opt
+                    });
+                    if (typeof callBack === 'function') {
+                        callBack();
+                    }
+                } else {
+                    dispatch({
+                        'type': actionTypes.SIGN_UP_ERROR,
+                        error: 'Can Signup with gmail only'
+                    });
                 }
             }).catch((err) => {
                 dispatch({

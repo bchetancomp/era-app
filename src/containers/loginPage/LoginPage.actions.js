@@ -1,7 +1,20 @@
 import actionTypes from './LoginPage.constants';
 
 // login
-export function logIn(opt, callBack) {
+export function logIn(opt, signedUsers, callBack) {
+    function matchInSignedUpUsers() {
+        let matched = false;
+        if(signedUsers && signedUsers.length > 0) {
+            for(var signedUser of signedUsers) {
+                if(signedUser.username === opt.username && signedUser.password === opt.password) {
+                    matched = true;
+                    break;
+                }
+            }
+        }
+        return matched;
+    }
+
     return (dispatch) => {
         dispatch({
             'type': actionTypes.SIGNING_IN
@@ -11,7 +24,7 @@ export function logIn(opt, callBack) {
                 mode: 'no-cors'
             })
             .then((res) => {
-                if(opt.username === 'admin' && opt.password === 'admin') {
+                if(opt.username === 'admin' && opt.password === 'admin' || matchInSignedUpUsers()) {
                     dispatch({
                         'type': actionTypes.SIGN_IN,
                         user: opt
@@ -40,7 +53,8 @@ export function logIn(opt, callBack) {
 export function logOut(callBack) {
     return (dispatch) => {
         dispatch({
-            type: actionTypes.SIGN_OUT
+            type: actionTypes.SIGN_OUT,
+            message: 'You have signed out from the application'
         });
         setTimeout(function () {
             callBack();

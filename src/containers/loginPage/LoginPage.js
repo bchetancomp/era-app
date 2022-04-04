@@ -5,17 +5,23 @@ import { Link } from 'react-router-dom';
 
 export default function LoginPage(props) {
     const navigate = useNavigate();
+    const message = props.message;
+    let isValid = "success";
+    if(message && message.length > 0) {
+        isValid = "error";
+    }
 
     function onFinish(values) {
         console.log('onFinish');
-        props.loginActions.logIn(values, navigateToLandingPage);
+        props.loginActions.logIn(values, props.signedUpUsers, navigateToLandingPage);
     }
     function onFinishFailed(errorInfo) {
-        console.log('onChangePswd');
+        console.log('onFinishFailed');
     }
     function navigateToLandingPage() {
         navigate('/');
     }
+    // validateStatus="success","error","validating", "warning"
     return (
         <Card title="Login" bordered={true} style={{ width: 500 }} >
             <Form
@@ -47,7 +53,7 @@ export default function LoginPage(props) {
                 <Checkbox>Remember me</Checkbox>
               </Form.Item>
 
-              <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
+              <Form.Item wrapperCol={{ offset: 6, span: 16 }} validateStatus={isValid} help={message}>
                 <Space size="large">
                     <Button type="primary" htmlType="submit">
                       Submit

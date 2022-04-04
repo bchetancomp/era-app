@@ -11,6 +11,14 @@ export default function AppsListPage() {
         navigate(this.link);
     }
     const apps = [{
+                    name: 'Visit Count',
+                    id: 'vc',
+                    description: 'App analytics page',
+                    author: '',
+                    image: 'https://images.unsplash.com/photo-1478432780021-b8d273730d8c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
+                    disabled: false,
+                    link: '/visitcount'
+                },{
                 name: 'CRM',
                 id: 'crm',
                 description: 'Customer Relationship Management',
