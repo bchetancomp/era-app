@@ -3,6 +3,114 @@ import { MoreOutlined } from '@ant-design/icons';
 const { Paragraph } = Typography;
 
 export default function CLM() {
+
+    /**
+     * onClick handler function which tried to do everything in one go, which freezes event loop for several seconds,
+     * during which page becomes unresponsive for user clicks on buttons, etc.
+     */
+    function heavyOperation() {
+        function checkPrime(number) {
+            let isPrime = true;
+        	// looping through 2 to number-1
+            for (let i = 2; i < number; i++) {
+                if (number % i === 0) {
+                    isPrime = false;
+                    break;
+                }
+            }
+
+            if (isPrime) {
+                //console.log(`${number} is a prime number`);
+        		return true;
+            } else {
+                //console.log(`${number} is a not prime number`);
+        		return false;
+            }
+
+        }
+        function getRandomInt(max) {
+          return Math.floor(Math.random() * max);
+        }
+        let nums = [];
+        let primes = [];
+        function generateRandomNumbers(n) {
+            for(let i =0; i< n; i++){
+                nums[i] = getRandomInt(99000);
+            }
+        }
+        generateRandomNumbers(1200000);
+        for(let j = 0; j<nums.length; j++){
+        	var isPrime = checkPrime(nums[j]);
+        	if(isPrime){
+        		primes.push(nums[j]);
+        	}
+        }
+        console.log(nums.length);
+        console.log(primes.length);
+    }
+
+    /**
+     * onClick handler function does processing in smaller chunks in a async way, which allows event loop to execute other UI events to run ,
+     * hence page becomes responsive for user clicks on buttons, etc.
+     */
+    function timeSlicedHeavyOperation() {
+        function checkPrime(number) {
+            let isPrime = true;
+            // looping through 2 to number-1
+            for (let i = 2; i < number; i++) {
+                if (number % i === 0) {
+                    isPrime = false;
+                    break;
+                }
+            }
+
+            if (isPrime) {
+                //console.log(`${number} is a prime number`);
+                return true;
+            } else {
+                //console.log(`${number} is a not prime number`);
+                return false;
+            }
+
+        }
+        function getRandomInt(max) {
+          return Math.floor(Math.random() * max);
+        }
+        let nums = [];
+        let primes = [];
+        function generateRandomNumbers(n) {
+            for(let i =0; i< n; i++){
+                nums[i] = getRandomInt(99000);
+            }
+        }
+        generateRandomNumbers(1200000);
+        var startIndex = 0;
+        var numsSize = 10000;
+        var j;
+
+        /*  chuck of work, processed in different time slices on the event loop */
+        function timeSliceOperation(start, size) {
+            for(let j = start; j<start+size; j++){
+                var isPrime = checkPrime(nums[j]);
+                if(isPrime){
+                    primes.push(nums[j]);
+                }
+            }
+        }
+
+        var intervalId = setInterval(function slice(){
+            timeSliceOperation(startIndex, numsSize);
+            startIndex += numsSize;
+            if(startIndex > 1200000) {
+                clearInterval(intervalId);
+
+                console.log(nums.length);
+                console.log(primes.length);
+            }
+        }, 100);
+
+    }
+
     const menu = (
       <Menu>
         <Menu.Item>
@@ -94,9 +202,9 @@ export default function CLM() {
             tags={<Tag color="blue">Running</Tag>}
             extra={[
               <Button key="3">Operation</Button>,
-              <Button key="2">Operation</Button>,
-              <Button key="1" type="primary">
-                Primary
+              <Button key="2" onClick={timeSlicedHeavyOperation}>Sliced Heavy Op</Button>,
+              <Button key="1" type="primary" onClick={heavyOperation}>
+                Heavy Op
               </Button>,
               <DropdownMenu key="more" />,
             ]}
